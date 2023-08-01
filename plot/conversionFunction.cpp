@@ -50,7 +50,7 @@ calibrationSettings conversionFunction(Int_t n, Double_t *eVEnergy, Double_t *AD
 
 	for (Int_t i = 0; i < n; i++)
 	{
-		TLatex *label = new TLatex(ADCEnergy[i], eVEnergy[i] + 1000, Form("#splitline{%s}{%.1f ADC, %.1f eV}", elements[i].c_str(), ADCEnergy[i], ADCEnergy[i]*fittedFunction.slope+fittedFunction.intercept));
+		TLatex *label = new TLatex(ADCEnergy[i], eVEnergy[i] + 1000, Form("#splitline{%s}{%.1f ADC, %.1f eV}", mainElements[i].c_str(), ADCEnergy[i], ADCEnergy[i]*fittedFunction.slope+fittedFunction.intercept));
 		label->SetTextSize(0.015);
 		label->SetTextColor(kRed);
 		label->SetTextAlign(22);

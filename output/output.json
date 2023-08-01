@@ -1,0 +1,9 @@
+{
+    "calibration_settings": [
+        {
+            "intercept": -1858.838960021935,
+            "sdd_id": 1,
+            "slope": 3.1298368001004766
+        }
+    ]
+}

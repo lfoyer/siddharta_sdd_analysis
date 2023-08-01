@@ -18,12 +18,12 @@
 #include "get/getHistograms.cpp"
 #include "get/getId.cpp"
 #include "other/clearHistogram.cpp"
-#include "other/filterOdd.cpp"
+#include "other/filterElem.cpp"
 #include "other/saveToJson.cpp"
 #include "other/scaleXaxis.cpp"
 #include "other/sumHistograms.cpp"
 #include "plot/sumResidualFunction.cpp"
-#include "plot/fitHistogram.cpp"
+#include "plot/sumFitHistogram.cpp"
 #include "plot/sumSigmaFunction.cpp"
 
 /**
@@ -54,7 +54,7 @@ int sum()
 
 	// Make fit
 	TCanvas *fitCanvas = new TCanvas("fitCanvas", "fitCanvas", 800, 600);
-	gaussValues fittedHistogram = fitHistogram(sumHist, sumParameters);
+	gaussValues fittedHistogram = sumFitHistogram(sumHist, sumParameters);
 	fitCanvas->Write("fitCanvas");
 	sumHist->Write("sumFitted");
 

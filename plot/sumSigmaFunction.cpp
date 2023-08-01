@@ -9,9 +9,7 @@ TGraphErrors *sumSigmaFunction(std::vector<Double_t> fitSigmas, std::vector<Doub
     TGraphErrors *sigmaGraph = new TGraphErrors(size(elemWithTail));
     sigmaGraph->SetTitle("FWHM");
 
-    Int_t j = 0;
-
-    for (Int_t i = 0; i < size(elements); i++)
+    for (Int_t i = 0, j = 0; i < size(elements); i++)
     {
         if (elemWithTail.count(elements[i]))
         {

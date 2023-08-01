@@ -1,7 +1,24 @@
 #include <map>
 #include <string>
 
-std::set<std::string> elemWithTail = {"Fe_ka", "Ti_ka", "Cu_ka", "Sr_ka"};
+std::set<std::string> elemWithTail = {"Ti_ka", "Fe_ka", "Cu_ka", "Sr_ka"};
+
+// Be warned- this is not very optimal code....
+std::set<std::string> calibrationMainElements = {"Ti_ka", "Fe_ka", "Cu_ka", "Sr_ka"};
+std::vector<std::string> mainElements = {"Ti_ka", "Fe_ka", "Cu_ka", "Sr_ka"};
+
+
+std::vector<std::string> calibrationElements = {
+	"Ti_ka",
+	"Ti_kb",
+	"Cr_ka",
+	"Cr_kb",
+	"Fe_ka",
+	"Fe_kb",
+	"Cu_ka",
+	"Cu_kb",
+	"Sr_ka",
+	"Sr_kb"};
 
 // Element names for labels; order of strings here determines order of fit parameters/labels
 std::vector<std::string> elements = {
@@ -97,6 +114,9 @@ std::map<std::string, Double_t> eV = {
 	{"Sr_ka", (14097.9 * 52 + 14165.0 * 100) / 152},
 	{"Sr_kb", (15824.9 * 7 + 15835.7 * 14) / 21},
 	{"Sr_kb2", 16084.6}};
+
+Double_t eVEnergy[] = {eV["Ti_ka"], eV["Fe_ka"], eV["Cu_ka"], eV["Sr_ka"]};
+
 
 // Initial sigma of sum of SDD spectrums
 std::map<std::string, Double_t> sum_amp = {

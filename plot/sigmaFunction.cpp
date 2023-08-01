@@ -40,7 +40,7 @@ TGraphErrors *sigmaFunction(Int_t n, calibrationSettings fittedFunction, Double_
 
 	for (Int_t i = 0; i < n; i++)
 	{
-		TLatex *label = new TLatex(eVEnergy[i], (sigmaValues[i] * fittedFunction.slope) * 2.35 + 10, Form("#splitline{%s}{%.1f eV, %.1f sig}", elements[i].c_str(), eVEnergy[i], (sigmaValues[i] * fittedFunction.slope) * 2.35));
+		TLatex *label = new TLatex(eVEnergy[i], (sigmaValues[i] * fittedFunction.slope) * 2.35 + 10, Form("#splitline{%s}{%.1f eV, %.1f sig}", mainElements[i].c_str(), eVEnergy[i], (sigmaValues[i] * fittedFunction.slope) * 2.35));
 		label->SetTextSize(0.015);
 		label->SetTextColor(kRed);
 		label->SetTextAlign(22);

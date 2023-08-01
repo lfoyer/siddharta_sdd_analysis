@@ -17,12 +17,12 @@
 #include "get/getHistograms.cpp"
 #include "get/getId.cpp"
 #include "other/clearHistogram.cpp"
-#include "other/filterOdd.cpp"
+#include "other/filterElem.cpp"
 #include "other/saveToJson.cpp"
 #include "other/scaleXaxis.cpp"
 #include "other/sumHistograms.cpp"
 #include "plot/conversionFunction.cpp"
-#include "plot/fitHistogramSingle.cpp"
+#include "plot/fitHistogram.cpp"
 #include "plot/conversionResidualFunction.cpp"
 #include "plot/sigmaFunction.cpp"
 
@@ -70,17 +70,16 @@ Int_t calibrate()
 
 		// Fit select channel
 		new TCanvas();
-		gaussValues fittedHistogram = fitHistogramSingle(histogram, parameters, numHist);
+		gaussValues fittedHistogram = fitHistogram(histogram, parameters, numHist);
 		fittedGaussValues.push_back(fittedHistogram);
 		adcGraphs->cd();
 		histogram->Write(Form("adc_%s", name.c_str()));
 
 		// Elaborate ADC-eV conversion function
 		(new TCanvas())->SetWindowPosition(800, 0);
-		Int_t n = fittedGaussValues[numHist].means.size() / 2; // div by 2 to not count small gaussians
-		Double_t *ADCEnergy = filterOdd(fittedGaussValues[numHist].means);
-		Double_t *ADCEnergyError = filterOdd(fittedGaussValues[numHist].meanErrors);
-		Double_t eVEnergy[] = {eV["Ti_ka"], eV["Cr_ka"], eV["Fe_ka"], eV["Cu_ka"], eV["Sr_ka"]};
+		Int_t n = size(mainElements); // div by 2 to not count small gaussians
+		Double_t *ADCEnergy = filterElem(fittedGaussValues[numHist].means);
+		Double_t *ADCEnergyError = filterElem(fittedGaussValues[numHist].meanErrors);
 
 		// Elaborate ADC to eV conversion function
 		calibrationSettings calibrationFunction = conversionFunction(n, eVEnergy, ADCEnergy, parameters.rangeMin, parameters.rangeMax);
@@ -105,13 +104,14 @@ Int_t calibrate()
 
 		// Elaborate sigma function
 		(new TCanvas())->SetWindowPosition(800, 1000);
-		Double_t *ADCsigmas = filterOdd(fittedGaussValues[numHist].sigmas);
-		Double_t *ADCsigmasError = filterOdd(fittedGaussValues[numHist].sigmaErrors);
+		Double_t *ADCsigmas = filterElem(fittedGaussValues[numHist].sigmas);
+		Double_t *ADCsigmasError = filterElem(fittedGaussValues[numHist].sigmaErrors);
 		TGraphErrors *sigmaGraph = sigmaFunction(n, calibrationFunction, eVEnergy, ADCsigmas, ADCsigmasError);
 		sigmaGraphs->cd();
 		sigmaGraph->Write(Form("sigma_%s", name.c_str()));
 
 		numHist++;
+		break;
 	}
 
 	saveToJson(calibrationSettingsList);

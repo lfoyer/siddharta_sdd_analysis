@@ -28,12 +28,19 @@ TGraphErrors* conversionResidualFunction(Int_t n, calibrationSettings fittedFunc
 
 	for (Int_t i = 0; i < n; i++)
 	{
-		TLatex *label = new TLatex(eVEnergy[i] + 300, residuals[i] + 0.3, elements[i].c_str());
+		TLatex *label = new TLatex(eVEnergy[i] + 300, residuals[i] + 0.3, mainElements[i].c_str());
 		label->SetTextSize(0.04);
 		label->SetTextColor(kRed);
 		label->SetTextAlign(22);
 		label->Draw();
 	}
+
+	TF1 *zero = new TF1("zero", "0", 0, 16500);
+	zero->SetLineStyle(2);
+	zero->SetLineColor(kBlack);
+	zero->Draw("same");
+
+	gPad->SetGridy();
 
 	return residualGraph;
 }
