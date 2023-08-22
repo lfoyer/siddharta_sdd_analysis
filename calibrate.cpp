@@ -111,7 +111,6 @@ Int_t calibrate()
 		sigmaGraph->Write(Form("sigma_%s", name.c_str()));
 
 		numHist++;
-		break;
 	}
 
 	saveToJson(calibrationSettingsList);
